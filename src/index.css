@@ -1,0 +1,39 @@
+:root {
+  --color-bg: #f9f5f1;
+  --color-surface: #ede0d4;
+  --color-primary: #7f5539;
+  --color-secondary: #9c6644;
+  --color-accent: #ddb892;
+  --color-text: #432818;
+  --color-muted: #b08968;
+}
+
+
+.app-container {
+  display: grid;
+  grid-template-columns: 1fr 400px 1fr; /* left - center - right */
+  gap: 100px;
+  min-height: 100vh;
+  align-items: center;
+  justify-items:center;
+  padding: 24px;
+}
+
+.main-panel {
+  grid-column: 2; /* center column */
+  width: 100%;
+  max-width: 400px;
+}
+
+.side-panel {
+  grid-column: 1,
+  width: 100%;
+  max-width: 400px;
+}
+.right-panel {
+  grid-column: 3; /* right column */
+  width: 100%;
+  max-width: 400px;
+}
+
+
