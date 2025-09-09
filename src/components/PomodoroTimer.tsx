@@ -1,16 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useHistory } from '../hooks/useHistory';
 import Button from './ui/Button';
-import Card from './ui/Card';
-import type { SessionType } from '../types';
-
-interface Settings {
-  workMinutes: number;
-  shortBreakMinutes: number;
-  longBreakMinutes: number;
-  sessionsBeforeLongBreak: number;
-  autoStartNext: boolean;
-}
+import type { Settings, SessionType } from '../types';
+import SettingsCard from './SettingsCard';
 
 const DEFAULT_SETTINGS: Settings = {
   workMinutes: 25,
@@ -199,7 +191,7 @@ export default function PomodoroTimer() {
     if (!isRunning) {
       setRemainingSec(getInitialSeconds(session, settings));
     }
-  }, [session, settings]);
+  }, [session]);
 
   function updateSetting<K extends keyof Settings>(k: K, v: Settings[K]) {
     setSettings((prev) => ({ ...prev, [k]: v }));
@@ -207,14 +199,14 @@ export default function PomodoroTimer() {
 
   return (
     <div>
-      <h2>
+      <h1>
         {session === 'work'
           ? 'Focus'
           : session === 'short-break'
             ? 'Short break'
             : 'Long break'}
-      </h2>
-      <div style={{ fontSize: 48, fontWeight: 700, margin: '10px 0' }}>
+      </h1>
+      <div style={{ fontSize: 80, fontWeight: 700, margin: '10px 0' }}>
         {formatTime(remainingSec)}
       </div>
 
@@ -229,72 +221,7 @@ export default function PomodoroTimer() {
       </div>
 
       <hr style={{ margin: '16px 0' }} />
-
-      <details>
-        <summary>Settings</summary>
-        <Card>
-          <label>
-            Work (minutes)
-            <input
-              type='number'
-              value={settings.workMinutes}
-              onChange={(e) =>
-                updateSetting(
-                  'workMinutes',
-                  Math.max(1, Number(e.target.value))
-                )
-              }
-            />
-          </label>
-          <label>
-            Short break (minutes)
-            <input
-              type='number'
-              value={settings.shortBreakMinutes}
-              onChange={(e) =>
-                updateSetting(
-                  'shortBreakMinutes',
-                  Math.max(1, Number(e.target.value))
-                )
-              }
-            />
-          </label>
-          <label>
-            Long break (minutes)
-            <input
-              type='number'
-              value={settings.longBreakMinutes}
-              onChange={(e) =>
-                updateSetting(
-                  'longBreakMinutes',
-                  Math.max(1, Number(e.target.value))
-                )
-              }
-            />
-          </label>
-          <label>
-            Sessions before long break
-            <input
-              type='number'
-              value={settings.sessionsBeforeLongBreak}
-              onChange={(e) =>
-                updateSetting(
-                  'sessionsBeforeLongBreak',
-                  Math.max(1, Number(e.target.value))
-                )
-              }
-            />
-          </label>
-          <label>
-            <input
-              type='checkbox'
-              checked={settings.autoStartNext}
-              onChange={(e) => updateSetting('autoStartNext', e.target.checked)}
-            />{' '}
-            Auto start next session
-          </label>
-        </Card>
-      </details>
+      <SettingsCard updateSetting={updateSetting} settings={settings}/>
 
       <hr style={{ margin: '16px 0' }} />
       <div>Completed sessions: {completedSessions}</div>

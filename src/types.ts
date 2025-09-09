@@ -6,3 +6,11 @@ export interface PomodoroRecordSession {
   endedAt: string;
   durationSec: number;
 }
+
+export interface Settings {
+  workMinutes: number;
+  shortBreakMinutes: number;
+  longBreakMinutes: number;
+  sessionsBeforeLongBreak: number;
+  autoStartNext: boolean;
+}
