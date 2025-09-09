@@ -133,12 +133,6 @@ export default function PomodoroTimer() {
 
     const endedAt = new Date(now).toISOString();
 
-    console.log('Adding record to history', {
-      sessionType: session,
-      startedAt,
-      endedAt,
-      durationSec,
-    });
     addRecord({
       sessionType: session,
       startedAt,

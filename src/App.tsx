@@ -1,26 +1,12 @@
-import PomodoroTimer from "./components/PomodoroTimer";
-import HistoryList from "./components/HistoryList";
-import StatsPanel from "./components/StatsPanel";
-import { useHistory } from "./hooks/useHistory";
+import PomodoroTimer from './components/PomodoroTimer';
 
 export default function App() {
-  const { history, clearHistory } = useHistory();
 
   return (
-    <div className="app-container">
-      {/* Left side */}
-      <div className="side-panel">
-        <HistoryList history={history} onClear={clearHistory} />
-      </div>
-
+    <div className='app-container'>
       {/* Center */}
-      <div className="main-panel">
+      <div className='main-panel'>
         <PomodoroTimer />
-      </div>
-
-      {/* Right side */}
-      <div className="side-panel">
-        <StatsPanel history={history} />
       </div>
     </div>
   );
