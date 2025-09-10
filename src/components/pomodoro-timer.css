@@ -1,0 +1,30 @@
+.timer-wrap {
+  display: flex;
+  justify-content: center;   /* ✅ horizontally centers children */
+  align-items: center;       /* ✅ vertically centers children */
+  margin: 12px auto;
+  width: 100%;
+}
+
+/* center the timer text exactly in the middle with responsive font-size */
+.timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  pointer-events: none;
+  /* responsive font: clamp(min, preferred, max) */
+  font-size: clamp(28px, 9vw, 72px);
+  color: var(--color-text);
+}
+
+/* keep controls from changing the timer size */
+.controls-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}

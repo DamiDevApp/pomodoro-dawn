@@ -3,6 +3,8 @@ import { useHistory } from '../hooks/useHistory';
 import Button from './ui/Button';
 import type { Settings, SessionType } from '../types';
 import SettingsCard from './SettingsCard';
+import CircularProgress from './CircularProgress';
+import './pomodoro-timer.css'
 
 const DEFAULT_SETTINGS: Settings = {
   workMinutes: 25,
@@ -53,6 +55,10 @@ export default function PomodoroTimer() {
   const [remainingSec, setRemainingSec] = useState<number>(() =>
     getInitialSeconds('work', settings)
   );
+
+  const totalSec = getInitialSeconds(session, settings);
+
+  const progress = 1 - remainingSec / totalSec;
 
   // References to manage interval and session timing
   const intervalRef = useRef<number | null>(null);
@@ -164,7 +170,7 @@ export default function PomodoroTimer() {
   function handleStart() {
     if (!isRunning) {
       if (sessionStartRef.current === null) {
-        sessionStartRef.current === Date.now();
+        sessionStartRef.current = Date.now();
       }
       setIsRunning(true);
     }
@@ -206,10 +212,14 @@ export default function PomodoroTimer() {
             ? 'Short break'
             : 'Long break'}
       </h1>
-      <div style={{ fontSize: 80, fontWeight: 700, margin: '10px 0' }}>
-        {formatTime(remainingSec)}
+      <div className='timer-wrap'>
+        <CircularProgress
+          progress={progress}
+          size={320}
+          strokeWidth={8}
+          timeLabel={formatTime(remainingSec)}
+        />
       </div>
-
       <div style={{ display: 'flex', gap: 8 }}>
         {!isRunning ? (
           <Button onClick={handleStart}>Start</Button>
@@ -221,7 +231,7 @@ export default function PomodoroTimer() {
       </div>
 
       <hr style={{ margin: '16px 0' }} />
-      <SettingsCard updateSetting={updateSetting} settings={settings}/>
+      <SettingsCard updateSetting={updateSetting} settings={settings} />
 
       <hr style={{ margin: '16px 0' }} />
       <div>Completed sessions: {completedSessions}</div>

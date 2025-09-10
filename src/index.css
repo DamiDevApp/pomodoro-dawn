@@ -8,10 +8,8 @@
   --color-muted: #b08968;
 }
 
-
 .app-container {
   display: grid;
-  gap: 100px;
   min-height: 100vh;
   align-items: center;
   justify-items: center;
@@ -20,7 +18,5 @@
 
 .main-panel {
   width: 100%;
-  max-width: 400px;
-}
-
+  max-width: 700px;
 }
