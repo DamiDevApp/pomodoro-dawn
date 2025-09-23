@@ -4,7 +4,7 @@ import Button from './ui/Button';
 import type { Settings, SessionType } from '../types';
 import SettingsCard from './SettingsCard';
 import CircularProgress from './CircularProgress';
-import './pomodoro-timer.css'
+import './pomodoro-timer.css';
 
 const DEFAULT_SETTINGS: Settings = {
   workMinutes: 25,
@@ -220,7 +220,7 @@ export default function PomodoroTimer() {
           timeLabel={formatTime(remainingSec)}
         />
       </div>
-      <div style={{ display: 'flex', gap: 8 }}>
+      <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
         {!isRunning ? (
           <Button onClick={handleStart}>Start</Button>
         ) : (

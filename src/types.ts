@@ -8,9 +8,9 @@ export interface PomodoroRecordSession {
 }
 
 export interface Settings {
-  workMinutes: number;
-  shortBreakMinutes: number;
-  longBreakMinutes: number;
-  sessionsBeforeLongBreak: number;
+  workMinutes: number | "";
+  shortBreakMinutes: number | "";
+  longBreakMinutes: number | "";
+  sessionsBeforeLongBreak: number | "";
   autoStartNext: boolean;
 }
