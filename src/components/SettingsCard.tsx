@@ -101,11 +101,16 @@ export default function SettingsCard({
           </div>
           <div className='setting-row'>
             <label>Auto start next session</label>
-            <input
-              type='checkbox'
-              checked={settings.autoStartNext}
-              onChange={(e) => updateSetting('autoStartNext', e.target.checked)}
-            />
+            <label className='checkbox-wrapper'>
+              <input
+                type='checkbox'
+                checked={settings.autoStartNext}
+                onChange={(e) =>
+                  updateSetting('autoStartNext', e.target.checked)
+                }
+              />
+              <span className='checkmark'></span>
+            </label>
           </div>
         </Card>
       </details>
