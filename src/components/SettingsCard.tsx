@@ -3,22 +3,28 @@ import type { Settings } from '../types';
 import './settings-card.css';
 import { IonIcon } from '@ionic/react';
 import { chevronDownOutline } from 'ionicons/icons';
+import Button from './ui/Button';
 
 interface SettingsCardProp {
   updateSetting: <K extends keyof Settings>(k: K, v: Settings[K]) => void;
+  resetSettings: () => void;
   settings: Settings;
 }
 
 export default function SettingsCard({
   updateSetting,
   settings,
+  resetSettings,
 }: SettingsCardProp) {
   return (
     <div>
       <details>
+        <div style={{ justifyContent: 'flex-end', display: 'flex', marginBottom: '10px'}}>
+          <Button onClick={resetSettings}>Reset settings</Button>
+        </div>
         <summary>
           <span className='title'>Settings</span>
-          <IonIcon icon={chevronDownOutline} className='chevron'/>
+          <IonIcon icon={chevronDownOutline} className='chevron' />
         </summary>
         <Card>
           <div className='setting-row'>

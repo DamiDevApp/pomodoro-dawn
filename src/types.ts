@@ -14,3 +14,11 @@ export interface Settings {
   sessionsBeforeLongBreak: number | "";
   autoStartNext: boolean;
 }
+
+export const DEFAULT_SETTINGS: Settings = {
+  workMinutes: 25,
+  shortBreakMinutes: 5,
+  longBreakMinutes: 15,
+  sessionsBeforeLongBreak: 4,
+  autoStartNext: false,
+};

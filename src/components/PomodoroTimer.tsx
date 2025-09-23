@@ -1,18 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useHistory } from '../hooks/useHistory';
 import Button from './ui/Button';
-import type { Settings, SessionType } from '../types';
+import { type Settings, type SessionType, DEFAULT_SETTINGS } from '../types';
 import SettingsCard from './SettingsCard';
 import CircularProgress from './CircularProgress';
 import './pomodoro-timer.css';
-
-const DEFAULT_SETTINGS: Settings = {
-  workMinutes: 25,
-  shortBreakMinutes: 5,
-  longBreakMinutes: 15,
-  sessionsBeforeLongBreak: 4,
-  autoStartNext: false,
-};
 
 function formatTime(totalSec: number) {
   const mm = Math.floor(totalSec / 60)
@@ -197,10 +189,13 @@ export default function PomodoroTimer() {
     if (!isRunning) {
       setRemainingSec(getInitialSeconds(session, settings));
     }
-  }, [session]);
+  }, [isRunning, session, settings]);
 
   function updateSetting<K extends keyof Settings>(k: K, v: Settings[K]) {
     setSettings((prev) => ({ ...prev, [k]: v }));
+  }
+  function resetSettings() {
+    setSettings(DEFAULT_SETTINGS);
   }
 
   return (
@@ -231,7 +226,11 @@ export default function PomodoroTimer() {
       </div>
 
       <hr style={{ margin: '16px 0' }} />
-      <SettingsCard updateSetting={updateSetting} settings={settings} />
+      <SettingsCard
+        updateSetting={updateSetting}
+        settings={settings}
+        resetSettings={resetSettings}
+      />
 
       <hr style={{ margin: '16px 0' }} />
       <div>Completed sessions: {completedSessions}</div>
