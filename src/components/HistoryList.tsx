@@ -1,17 +1,22 @@
-import type { PomodoroRecordSession } from '../types';
+import { HistoryContext } from '../contexts/HistoryContext';
+import { useContext } from 'react';
 
-interface HistoryListProps {
-  history: PomodoroRecordSession[];
-  onClear: () => void;
-}
+export default function HistoryList() {
+  const { history, clearHistory } = useContext(HistoryContext);
 
-export default function HistoryList({ history, onClear }: HistoryListProps) {
   return (
     <div>
       <h3>History</h3>
-      <button onClick={onClear}>Clear history</button>
-      <ul>
-        {history.slice(-5).map((h, i) => (
+      <button onClick={clearHistory}>Clear history</button>
+      <ul
+        style={{
+          maxHeight: '500px',
+          overflowY: 'auto',
+          padding: '8px',
+          margin: '8px 0',
+        }}
+      >
+        {history.map((h, i) => (
           <li key={i}>
             {h.sessionType} • {new Date(h.startedAt).toLocaleTimeString()} →{' '}
             {new Date(h.endedAt).toLocaleTimeString()} (

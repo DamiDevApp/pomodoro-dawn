@@ -9,14 +9,20 @@
 }
 
 .app-container {
-  display: grid;
+  display: flex;
   min-height: 100vh;
   align-items: center;
-  justify-items: center;
+  justify-content: space-around;
   padding: 24px;
+  background-color: var(--color-bg);
 }
 
 .main-panel {
+  width: 100%;
+  max-width: 500px;
+}
+
+.history-panel {
   width: 100%;
   max-width: 500px;
 }

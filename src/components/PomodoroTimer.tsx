@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { useHistory } from '../hooks/useHistory';
+import { useEffect, useRef, useState, useContext } from 'react';
 import Button from './ui/Button';
+import { HistoryContext } from '../contexts/HistoryContext';
 import { type Settings, type SessionType, DEFAULT_SETTINGS } from '../types';
 import SettingsCard from './SettingsCard';
 import CircularProgress from './CircularProgress';
@@ -35,7 +35,7 @@ export default function PomodoroTimer() {
     return raw ? Number(raw) || 0 : 0;
   });
 
-  const { addRecord } = useHistory();
+  const { addRecord } = useContext(HistoryContext);
 
   const getInitialSeconds = (s: SessionType, st: Settings) =>
     (s === 'work'
@@ -108,6 +108,7 @@ export default function PomodoroTimer() {
         intervalRef.current = null;
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRunning]);
 
   function handleSessionEnd() {
@@ -184,12 +185,6 @@ export default function PomodoroTimer() {
     setIsRunning(false);
     handleSessionEnd();
   }
-
-  useEffect(() => {
-    if (!isRunning) {
-      setRemainingSec(getInitialSeconds(session, settings));
-    }
-  }, [isRunning, session, settings]);
 
   function updateSetting<K extends keyof Settings>(k: K, v: Settings[K]) {
     setSettings((prev) => ({ ...prev, [k]: v }));
