@@ -1,27 +1,24 @@
 import { HistoryContext } from '../contexts/HistoryContext';
 import { useContext } from 'react';
+import SessionCard from './ui/SessionCard.tsx';
+import type { PomodoroRecordSession } from '../types.ts';
 
 export default function HistoryList() {
   const { history, clearHistory } = useContext(HistoryContext);
 
   return (
     <div>
-      <h3>History</h3>
-      <button onClick={clearHistory}>Clear history</button>
+      <h2>History</h2>
+      <button style={{ justifySelf: 'end'}} onClick={clearHistory}>Clear history</button>
       <ul
         style={{
-          maxHeight: '500px',
+          maxHeight: '400px',
           overflowY: 'auto',
-          padding: '8px',
-          margin: '8px 0',
+          paddingLeft: '0px',
         }}
       >
-        {history.map((h, i) => (
-          <li key={i}>
-            {h.sessionType} • {new Date(h.startedAt).toLocaleTimeString()} →{' '}
-            {new Date(h.endedAt).toLocaleTimeString()} (
-            {Math.round(h.durationSec / 60)}m)
-          </li>
+        {history.map((h: PomodoroRecordSession, i: number) => (
+          <SessionCard key={i} history={h} index={i} />
         ))}
       </ul>
     </div>

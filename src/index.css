@@ -8,6 +8,10 @@
   --color-muted: #b08968;
 }
 
+html, body {
+  font-family: sans-serif;
+}
+
 .app-container {
   display: flex;
   min-height: 100vh;
