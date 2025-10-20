@@ -208,6 +208,7 @@ export default function PomodoroTimer() {
           size={320}
           strokeWidth={8}
           timeLabel={formatTime(remainingSec)}
+          isPaused={isRunning}
         />
       </div>
       <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>

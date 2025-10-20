@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
+import { useMemo } from 'react';
 
 type CircularProgressProps = {
   progress: number;
   size?: number;
   strokeWidth?: number;
-  timeLabel?: string; // pass formatted time
+  timeLabel?: string;
+  isPaused: boolean;
 };
 
 export default function CircularProgress({
@@ -18,8 +20,8 @@ export default function CircularProgress({
   const offset = circumference * (1 - progress);
 
   return (
-    <svg width={size} height={size}>
-      {/* Track circle */}
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      {/* Base circle */}
       <circle
         stroke='var(--color-surface)'
         fill='transparent'
@@ -29,7 +31,7 @@ export default function CircularProgress({
         cy={size / 2}
       />
 
-      {/* Progress circle */}
+      {/* Progress arc */}
       <motion.circle
         stroke='var(--color-primary)'
         fill='transparent'
@@ -40,6 +42,7 @@ export default function CircularProgress({
         cy={size / 2}
         strokeDasharray={circumference}
         strokeDashoffset={offset}
+        style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }}
         initial={{ strokeDashoffset: circumference }}
         animate={{ strokeDashoffset: offset }}
         transition={{ duration: 0.5, ease: 'easeInOut' }}
@@ -52,8 +55,9 @@ export default function CircularProgress({
           y='50%'
           textAnchor='middle'
           dominantBaseline='middle'
-          fontSize={size * 0.2} // scales with SVG
+          fontSize={size * 0.2}
           fontWeight='bold'
+          letterSpacing={2}
           fill='var(--color-text)'
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

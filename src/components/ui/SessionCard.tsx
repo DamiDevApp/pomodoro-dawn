@@ -1,7 +1,12 @@
 import type { PomodoroRecordSession } from '../../types';
 import styles from './SessionCard.module.css';
 import { IonIcon } from '@ionic/react';
-import { pauseCircleSharp, bugSharp } from 'ionicons/icons';
+import {
+  pauseCircleSharp,
+  bugSharp,
+  hourglassOutline,
+  timeOutline,
+} from 'ionicons/icons';
 
 interface SessionCardProps {
   history: PomodoroRecordSession;
@@ -31,7 +36,8 @@ export default function SessionCard({ history, index }: SessionCardProps) {
           flexDirection: 'row',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'normal',
+          justifyContent: 'space-between',
+          maxWidth: '475px',
         }}
       >
         <div className={styles['title-session']}>
@@ -39,11 +45,19 @@ export default function SessionCard({ history, index }: SessionCardProps) {
         </div>
         <div>{chooseActivityIcon(history.sessionType)}</div>
       </div>
-      <div style={{fontStyle: 'normal'}}>Duration: </div>
-      <div>
-        {new Date(history.startedAt).toLocaleTimeString()} → {' '}
-        {new Date(history.endedAt).toLocaleTimeString()} (
-        {Math.round(history.durationSec / 60)}m)
+      <div style={{ fontStyle: 'normal', letterSpacing: '1px' }}>Duration: </div>
+      <div className={styles['duration-section']}>
+        <IonIcon icon={timeOutline} className={styles['duration-icon']} />
+        <div className={styles['duration-text']}>
+          <span className={styles['time-range']}>
+            {new Date(history.startedAt).toLocaleTimeString()} →{' '}
+            {new Date(history.endedAt).toLocaleTimeString()}
+          </span>
+          <span className={styles['total-duration']}>
+            <IonIcon icon={hourglassOutline} className={styles['mini-icon']} />(
+            {Math.round(history.durationSec / 60)}min)
+          </span>
+        </div>
       </div>
     </li>
   );

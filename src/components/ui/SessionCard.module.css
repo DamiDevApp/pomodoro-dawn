@@ -9,9 +9,10 @@
 
 .title-session {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 10px;
   margin-right: 20px;
+  letter-spacing: 1.5px;
 }
 
 .main-card:hover {
@@ -20,6 +21,44 @@
 }
 
 .icon {
-  font-size: 22px;
+  font-size: 24px;
   padding-bottom: 5px;
+}
+
+.duration-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  color: var(--color-text, #432818);
+}
+
+.duration-icon {
+  font-size: 22px;
+  color: var(--color-bg);
+}
+
+.duration-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.time-range {
+  font-weight: 500;
+  color: var(--color-bg);
+}
+
+.total-duration {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: var(--color-bg);
+}
+
+.mini-icon {
+  font-size: 16px;
 }

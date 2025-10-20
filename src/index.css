@@ -12,6 +12,11 @@ html, body {
   font-family: sans-serif;
 }
 
+h1 {
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+
 .app-container {
   display: flex;
   min-height: 100vh;
