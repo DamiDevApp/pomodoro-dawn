@@ -1,12 +1,10 @@
 import { motion } from 'framer-motion';
-import { useMemo } from 'react';
 
 type CircularProgressProps = {
   progress: number;
   size?: number;
   strokeWidth?: number;
   timeLabel?: string;
-  isPaused: boolean;
 };
 
 export default function CircularProgress({
@@ -20,7 +18,7 @@ export default function CircularProgress({
   const offset = circumference * (1 - progress);
 
   return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <svg width={size} height={size + 20} viewBox={`0 0 ${size} ${size}`}>
       {/* Base circle */}
       <circle
         stroke='var(--color-surface)'
@@ -30,7 +28,6 @@ export default function CircularProgress({
         cx={size / 2}
         cy={size / 2}
       />
-
       {/* Progress arc */}
       <motion.circle
         stroke='var(--color-primary)'
@@ -47,7 +44,6 @@ export default function CircularProgress({
         animate={{ strokeDashoffset: offset }}
         transition={{ duration: 0.5, ease: 'easeInOut' }}
       />
-
       {/* Timer text */}
       {timeLabel && (
         <motion.text
