@@ -1,12 +1,15 @@
 {
   "name": "pomodoro-dawn",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "electron:dev": "vite",
+    "electron:build": "vite build && electron-builder",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -32,5 +35,15 @@
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2",
     "vite-plugin-electron": "^0.29.0"
+  },
+  "build": {
+    "appId": "com.app.pomodoro-dawn",
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "directories": {
+      "output": "release"
+    }
   }
 }
