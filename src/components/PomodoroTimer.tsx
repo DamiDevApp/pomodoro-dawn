@@ -2,9 +2,11 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import Button from './ui/Button';
 import { HistoryContext } from '../contexts/HistoryContext';
 import { type Settings, type SessionType, DEFAULT_SETTINGS } from '../types';
+import { useElectronNotifications } from '../hooks/useElectronNotifications';
 import SettingsCard from './SettingsCard';
 import CircularProgress from './CircularProgress';
 import './pomodoro-timer.css';
+import { a } from 'framer-motion/client';
 
 function formatTime(totalSec: number) {
   const mm = Math.floor(totalSec / 60)
@@ -34,6 +36,8 @@ export default function PomodoroTimer() {
     const raw = localStorage.getItem('pomodoro:completed');
     return raw ? Number(raw) || 0 : 0;
   });
+
+  const { sendNotification } = useElectronNotifications();
 
   const { addRecord } = useContext(HistoryContext);
 
@@ -89,13 +93,6 @@ export default function PomodoroTimer() {
         setRemainingSec((prev) => {
           if (prev <= 1) {
             // stop timer session ended
-
-            if (intervalRef.current !== null) {
-              window.clearInterval(intervalRef.current);
-              intervalRef.current = null;
-            }
-            setIsRunning(false);
-            handleSessionEnd();
             return 0;
           }
           return prev - 1;
@@ -108,11 +105,43 @@ export default function PomodoroTimer() {
         intervalRef.current = null;
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRunning]);
+
+  useEffect(() => {
+    if (remainingSec === 0 && isRunning) {
+      // stop timer
+      if (intervalRef.current !== null) {
+        window.clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      setIsRunning(false);
+      handleSessionEnd();
+    }
+  }, [remainingSec, isRunning]);
+
+  useEffect(() => {
+    console.log('window.electron exists:', window.electron !== undefined);
+    console.log('window.electron value:', window.electron);
+  }, []);
+
+  function testNotification() {
+    console.log('Test button clicked');
+    console.log('window.electron:', window.electron);
+
+    if (window.electron) {
+      window.electron
+        .showNotification('Manual Test', 'Testing notification', true)
+        .then((result) => console.log('Result:', result))
+        .catch((err) => console.error('Error:', err));
+    } else {
+      console.error('window.electron is undefined!');
+    }
+  }
 
   function handleSessionEnd() {
     // compute real duration sessionStartRef
+
+    console.log('Calling session end');
     const now = Date.now();
     const startedAt = sessionStartRef.current
       ? new Date(sessionStartRef.current).toISOString()
@@ -130,6 +159,22 @@ export default function PomodoroTimer() {
       endedAt,
       durationSec,
     });
+
+    // create notification
+    const notificationTitle =
+      session === 'work' ? 'Work session completed!' : 'Break time is over';
+
+    const notificationBody =
+      session === 'work'
+        ? `Great job! Time for a ${completedSessions % settings.sessionsBeforeLongBreak === 0 ? 'long' : 'short'} break`
+        : 'Ready to focus again?';
+
+    console.log('Sending notification', notificationTitle);
+
+    sendNotification(notificationTitle, {
+      body: notificationBody,
+      sound: true,
+    }).then((result) => console.log('Notification result: ', result));
 
     if (session === 'work') {
       setCompletedSessions((prev) => {
@@ -202,6 +247,7 @@ export default function PomodoroTimer() {
             ? 'Short break'
             : 'Long break'}
       </h1>
+      <Button onClick={testNotification}>Test Notification</Button>
       <div className='timer-wrap'>
         <CircularProgress
           progress={progress}
