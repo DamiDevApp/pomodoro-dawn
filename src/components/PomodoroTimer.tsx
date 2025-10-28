@@ -6,8 +6,8 @@ import { useElectronNotifications } from '../hooks/useElectronNotifications';
 import SettingsCard from './SettingsCard';
 import CircularProgress from './CircularProgress';
 import './pomodoro-timer.css';
-import { a } from 'framer-motion/client';
 
+// Function to pass the time to minutes:seconds
 function formatTime(totalSec: number) {
   const mm = Math.floor(totalSec / 60)
     .toString()
@@ -74,7 +74,6 @@ export default function PomodoroTimer() {
   }, [completedSessions]);
 
   //clear interval on unmount
-
   useEffect(() => {
     return () => {
       if (intervalRef.current !== null) {
@@ -247,7 +246,7 @@ export default function PomodoroTimer() {
             ? 'Short break'
             : 'Long break'}
       </h1>
-      <Button onClick={testNotification}>Test Notification</Button>
+      <button onClick={testNotification}> Test notification</button>
       <div className='timer-wrap'>
         <CircularProgress
           progress={progress}
@@ -266,15 +265,24 @@ export default function PomodoroTimer() {
         <Button onClick={handleReset}>Reset</Button>
       </div>
 
-      <hr style={{ margin: '16px 0' }} />
-      <SettingsCard
-        updateSetting={updateSetting}
-        settings={settings}
-        resetSettings={resetSettings}
-      />
+      <div
+        style={{
+          justifySelf: 'center',
+          display: 'flex',
+          width: '750px',
+          flexDirection: 'column'
+        }}
+      >
+        <hr style={{ margin: '16px 0' }} />
+        <SettingsCard
+          updateSetting={updateSetting}
+          settings={settings}
+          resetSettings={resetSettings}
+        />
 
-      <hr style={{ margin: '16px 0' }} />
-      <div>Completed sessions: {completedSessions}</div>
+        <hr style={{ margin: '16px 0' }} />
+        <div>Completed sessions: {completedSessions}</div>
+      </div>
     </div>
   );
 }

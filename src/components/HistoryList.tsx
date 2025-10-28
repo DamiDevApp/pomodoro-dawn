@@ -27,7 +27,7 @@ export default function HistoryList() {
       </button>
       <ul
         style={{
-          maxHeight: '400px',
+          maxHeight: '750px',
           overflowY: 'auto',
           paddingLeft: '0px',
         }}
