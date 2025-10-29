@@ -1,7 +1,7 @@
 .timer-wrap {
   display: flex;
-  justify-content: center;   /* ✅ horizontally centers children */
-  align-items: center;       /* ✅ vertically centers children */
+  justify-content: center;
+  align-items: center;
   margin: 12px auto;
   width: 100%;
 }
@@ -16,7 +16,6 @@
   line-height: 1;
   text-align: center;
   pointer-events: none;
-  /* responsive font: clamp(min, preferred, max) */
   font-size: clamp(28px, 9vw, 72px);
   color: var(--color-text);
 }
@@ -24,7 +23,68 @@
 /* keep controls from changing the timer size */
 .controls-row {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   justify-content: center;
-  margin-top: 12px;
+  margin-top: 20px;
+}
+
+.timer-button{
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 400;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(67, 40, 24, 0.12), 0 1px 3px rgba(67, 40, 24, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+.timer-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.6s ease;
+}
+
+.timer-button:hover::before {
+  left: 100%;
+}
+
+.timer-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(67, 40, 24, 0.18), 0 2px 4px rgba(67, 40, 24, 0.12);
+}
+
+.timer-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(67, 40, 24, 0.1);
+}
+
+/* Primary button (Start/Pause) */
+.timer-button-primary {
+  background: linear-gradient(135deg, #7f5539 0%, #9c6644 100%);
+  color: #f9f5f1;
+  min-width: 110px;
+}
+
+.timer-button-primary:hover {
+  background: linear-gradient(135deg, #8a5f40 0%, #a56f4b 100%);
+}
+
+/* Secondary buttons (Skip, Reset) */
+.timer-button-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1.5px solid var(--color-muted);
+}
+
+.timer-button-secondary:hover {
+  background: var(--color-accent);
+  border-color: var(--color-secondary);
 }

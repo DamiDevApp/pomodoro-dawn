@@ -118,28 +118,10 @@ export default function PomodoroTimer() {
     }
   }, [remainingSec, isRunning]);
 
-  useEffect(() => {
-    console.log('window.electron exists:', window.electron !== undefined);
-    console.log('window.electron value:', window.electron);
-  }, []);
 
-  function testNotification() {
-    console.log('Test button clicked');
-    console.log('window.electron:', window.electron);
-
-    if (window.electron) {
-      window.electron
-        .showNotification('Manual Test', 'Testing notification', true)
-        .then((result) => console.log('Result:', result))
-        .catch((err) => console.error('Error:', err));
-    } else {
-      console.error('window.electron is undefined!');
-    }
-  }
 
   function handleSessionEnd() {
     // compute real duration sessionStartRef
-
     console.log('Calling session end');
     const now = Date.now();
     const startedAt = sessionStartRef.current
@@ -246,7 +228,6 @@ export default function PomodoroTimer() {
             ? 'Short break'
             : 'Long break'}
       </h1>
-      <button onClick={testNotification}> Test notification</button>
       <div className='timer-wrap'>
         <CircularProgress
           progress={progress}
@@ -255,14 +236,14 @@ export default function PomodoroTimer() {
           timeLabel={formatTime(remainingSec)}
         />
       </div>
-      <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
+      <div className='controls-row'>
         {!isRunning ? (
-          <Button onClick={handleStart}>Start</Button>
+          <Button className='timer-button'onClick={handleStart}>Start</Button>
         ) : (
-          <Button onClick={handlePause}>Pause</Button>
+          <Button className='timer-button' onClick={handlePause}>Pause</Button>
         )}
-        <Button onClick={handleSkip}>Skip</Button>
-        <Button onClick={handleReset}>Reset</Button>
+        <Button className='timer-button' onClick={handleSkip}>Skip</Button>
+        <Button className='timer-button' onClick={handleReset}>Reset</Button>
       </div>
 
       <div
