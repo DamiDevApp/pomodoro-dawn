@@ -10,11 +10,32 @@
 
 html, body {
   font-family: sans-serif;
+  flex: 1;
+  padding: 20px;
+  overflow-y: hidden; /* or just remove this line entirely */
 }
 
 h1 {
   font-weight: 400;
   letter-spacing: 1.5px;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-accent);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
 }
 
 

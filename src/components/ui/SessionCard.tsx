@@ -43,7 +43,7 @@ export default function SessionCard({ history, index }: SessionCardProps) {
         <div className={styles['title-session']}>
           {capitalizeTitle(history.sessionType)}{' '}
         </div>
-        <div style={{marginRight: '10px'}}>{chooseActivityIcon(history.sessionType)}</div>
+        <div >{chooseActivityIcon(history.sessionType)}</div>
       </div>
       <div style={{ fontStyle: 'normal', letterSpacing: '1px' }}>Duration: </div>
       <div className={styles['duration-section']}>

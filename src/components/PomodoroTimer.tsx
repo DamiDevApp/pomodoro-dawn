@@ -67,10 +67,7 @@ export default function PomodoroTimer() {
   }, [settings]);
 
   useEffect(() => {
-    localStorage.setItem(
-      'pomodoro:completed',
-      JSON.stringify(completedSessions)
-    );
+    localStorage.setItem('pomodoro:completed', JSON.stringify(completedSessions));
   }, [completedSessions]);
 
   //clear interval on unmount
@@ -238,7 +235,7 @@ export default function PomodoroTimer() {
       </div>
       <div className='controls-row'>
         {!isRunning ? (
-          <Button className='timer-button'onClick={handleStart}>Start</Button>
+          <Button className='timer-button' onClick={handleStart}>Start</Button>
         ) : (
           <Button className='timer-button' onClick={handlePause}>Pause</Button>
         )}
